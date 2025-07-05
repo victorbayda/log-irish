@@ -176,3 +176,150 @@
 
  
 
+// Initialize Firebase
+
+  firebase.initializeApp(firebaseConfig);
+
+  const db = firebase.firestore();
+
+ 
+
+  const logButton = document.getElementById('logButton');
+
+  const statusDiv = document.getElementById('status');
+
+ 
+
+  logButton.addEventListener('click', () => {
+
+    statusDiv.textContent = 'Getting location...';
+
+    if (!navigator.geolocation) {
+
+      statusDiv.textContent = 'Geolocation is not supported by your browser.';
+
+      return;
+
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+
+      const { latitude, longitude } = position.coords;
+
+      try {
+
+        await db.collection('irish_logs').add({
+
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+
+          lat: latitude,
+
+          lng: longitude
+
+        });
+
+        statusDiv.textContent = 'Thanks! Your Irish use was logged.';
+
+      } catch (e) {
+
+        statusDiv.textContent = 'Error logging your Irish use: ' + e.message;
+
+      }
+
+    }, (error) => {
+
+      statusDiv.textContent = 'Error getting location: ' + error.message;
+
+    }, {
+
+      enableHighAccuracy: true,
+
+      timeout: 10000,
+
+      maximumAge: 0
+
+    });
+
+  });
+
+</script>
+
+ 
+
+</body>
+
+</html>
+
+  // Initialize Firebase
+
+  firebase.initializeApp(firebaseConfig);
+
+  const db = firebase.firestore();
+
+ 
+
+  const logButton = document.getElementById('logButton');
+
+  const statusDiv = document.getElementById('status');
+
+ 
+
+  logButton.addEventListener('click', () => {
+
+    statusDiv.textContent = 'Getting location...';
+
+    if (!navigator.geolocation) {
+
+      statusDiv.textContent = 'Geolocation is not supported by your browser.';
+
+      return;
+
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+
+      const { latitude, longitude } = position.coords;
+
+      try {
+
+        await db.collection('irish_logs').add({
+
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+
+          lat: latitude,
+
+          lng: longitude
+
+        });
+
+        statusDiv.textContent = 'Thanks! Your Irish use was logged.';
+
+      } catch (e) {
+
+        statusDiv.textContent = 'Error logging your Irish use: ' + e.message;
+
+      }
+
+    }, (error) => {
+
+      statusDiv.textContent = 'Error getting location: ' + error.message;
+
+    }, {
+
+      enableHighAccuracy: true,
+
+      timeout: 10000,
+
+      maximumAge: 0
+
+    });
+
+  });
+
+</script>
+
+ 
+
+</body>
+
+</html>
