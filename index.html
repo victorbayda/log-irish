@@ -36,7 +36,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
   <script>
-    // Your Firebase configuration
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -46,11 +45,9 @@
       appId: "YOUR_APP_ID"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Handle button click
     const logButton = document.getElementById('logButton');
     const statusDiv = document.getElementById('status');
 
