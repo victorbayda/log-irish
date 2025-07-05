@@ -1,323 +1,85 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<title>Irish Language Logger</title>
-
-<style>
-
-  body {
-
-    font-family: Arial, sans-serif;
-
-    text-align: center;
-
-    padding: 2rem;
-
-    background: #e9f5e9;
-
-  }
-
-  button {
-
-    font-size: 2rem;
-
-    padding: 1rem 2rem;
-
-    background: #228B22;
-
-    color: white;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-  }
-
-  #status {
-
-    margin-top: 1rem;
-
-    font-weight: bold;
-
-  }
-
-</style>
-
-</head>
-
-<body>
-
- 
-
-<h1>Log Your Irish Language Use</h1>
-
-<button id="logButton">I spoke Irish!</button>
-
-<div id="status"></div>
-
- 
-
-<!-- Firebase SDK -->
-
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-
- 
-
-<script>
-
-  // TODO: Replace the following with your app's Firebase project configuration
-
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<title>Irish Language Logger</title>
-
-<style>
-
-  body {
-
-    font-family: Arial, sans-serif;
-
-    text-align: center;
-
-    padding: 2rem;
-
-    background: #e9f5e9;
-
-  }
-
-  button {
-
-    font-size: 2rem;
-
-    padding: 1rem 2rem;
-
-    background: #228B22;
-
-    color: white;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-  }
-
-  #status {
-
-    margin-top: 1rem;
-
-    font-weight: bold;
-
-  }
-
-</style>
-
-</head>
-
-<body>
-
- 
-
-<h1>Log Your Irish Language Use</h1>
-
-<button id="logButton">I spoke Irish!</button>
-
-<div id="status"></div>
-
- 
-
-<!-- Firebase SDK -->
-
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-
- 
-
-<script>
-
-  // TODO: Replace the following with your app's Firebase project configuration
-
-  const firebaseConfig = {
-
-    apiKey: "YOUR_API_KEY",
-
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-
-    projectId: "YOUR_PROJECT_ID",
-
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-
-    messagingSenderId: "YOUR_SENDER_ID",
-
-    appId: "YOUR_APP_ID"
-
-  };
-
- 
-
-  // Initialize Firebase
-
-  firebase.initializeApp(firebaseConfig);
-
-  const db = firebase.firestore();
-
- 
-
-  const logButton = document.getElementById('logButton');
-
-  const statusDiv = document.getElementById('status');
-
- 
-
-  logButton.addEventListener('click', () => {
-
-    statusDiv.textContent = 'Getting location...';
-
-    if (!navigator.geolocation) {
-
-      statusDiv.textContent = 'Geolocation is not supported by your browser.';
-
-      return;
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Irish Language Logger</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background: #e9f5e9;
     }
-
-    navigator.geolocation.getCurrentPosition(async (position) => {
-
-      const { latitude, longitude } = position.coords;
-
-      try {
-
-        await db.collection('irish_logs').add({
-
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-
-          lat: latitude,
-
-          lng: longitude
-
-        });
-
-        statusDiv.textContent = 'Thanks! Your Irish use was logged.';
-
-      } catch (e) {
-
-        statusDiv.textContent = 'Error logging your Irish use: ' + e.message;
-
-      }
-
-    }, (error) => {
-
-      statusDiv.textContent = 'Error getting location: ' + error.message;
-
-    }, {
-
-      enableHighAccuracy: true,
-
-      timeout: 10000,
-
-      maximumAge: 0
-
-    });
-
-  });
-
-</script>
-
- 
-
-
-<script>
-  // Initialize Firebase
-
-  firebase.initializeApp(firebaseConfig);
-
-  const db = firebase.firestore();
-
- 
-
-  const logButton = document.getElementById('logButton');
-
-  const statusDiv = document.getElementById('status');
-
- 
-
-  logButton.addEventListener('click', () => {
-
-    statusDiv.textContent = 'Getting location...';
-
-    if (!navigator.geolocation) {
-
-      statusDiv.textContent = 'Geolocation is not supported by your browser.';
-
-      return;
-
+    button {
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      background: #228B22;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
     }
+    #status {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Log Your Irish Language Use</h1>
+  <button id="logButton">I spoke Irish!</button>
+  <div id="status"></div>
 
-    navigator.geolocation.getCurrentPosition(async (position) => {
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
-      const { latitude, longitude } = position.coords;
+  <script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-      try {
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-        await db.collection('irish_logs').add({
+    // Handle button click
+    const logButton = document.getElementById('logButton');
+    const statusDiv = document.getElementById('status');
 
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-
-          lat: latitude,
-
-          lng: longitude
-
-        });
-
-        statusDiv.textContent = 'Thanks! Your Irish use was logged.';
-
-      } catch (e) {
-
-        statusDiv.textContent = 'Error logging your Irish use: ' + e.message;
-
+    logButton.addEventListener('click', () => {
+      statusDiv.textContent = 'Getting location...';
+      if (!navigator.geolocation) {
+        statusDiv.textContent = 'Geolocation is not supported by your browser.';
+        return;
       }
-
-    }, (error) => {
-
-      statusDiv.textContent = 'Error getting location: ' + error.message;
-
-    }, {
-
-      enableHighAccuracy: true,
-
-      timeout: 10000,
-
-      maximumAge: 0
-
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          await db.collection('irish_logs').add({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            lat: latitude,
+            lng: longitude
+          });
+          statusDiv.textContent = 'Thanks! Your Irish use was logged.';
+        } catch (e) {
+          statusDiv.textContent = 'Error logging your Irish use: ' + e.message;
+        }
+      }, (error) => {
+        statusDiv.textContent = 'Error getting location: ' + error.message;
+      }, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      });
     });
-
-  });
-
-</script>
-
- 
-
+  </script>
 </body>
-
 </html>
